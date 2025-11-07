@@ -13,18 +13,22 @@ import random
 
 def play_rps():
     print("Welcome to Rock, Paper, Scissors!")
-    
     choices = ['rock', 'paper', 'scissors']
-    
+    key_map = {'r': 'rock', 'p': 'paper', 's': 'scissors'}
+
     while True:
-        user_choice = input("Enter your choice (rock, paper, scissors): ").lower()
-        if user_choice not in choices:
+        raw = input("Enter your choice (r=rock, p=paper, s=scissors): ").strip().lower()
+        if raw in key_map:
+            user_choice = key_map[raw]
+        elif raw in choices:  # optional: allow full words too
+            user_choice = raw
+        else:
             print("Invalid choice. Please try again.")
             continue
-        
+
         computer_choice = random.choice(choices)
         print(f"Computer chose: {computer_choice}")
-        
+
         if user_choice == computer_choice:
             result = "It's a tie!"
         elif (user_choice == 'rock' and computer_choice == 'scissors') or \
@@ -33,14 +37,14 @@ def play_rps():
             result = "You win!"
         else:
             result = "You lose!"
-        
+
         print(result)
-        
-        play_again = input("Do you want to play again? (yes/no): ").lower()
-        if play_again != 'yes':
+
+        play_again = input("Play again? (y/n): ").strip().lower()
+        if play_again != 'y':
             print("Goodbye!")
             break
+
 if __name__ == "__main__":
     play_rps()
 
-    
